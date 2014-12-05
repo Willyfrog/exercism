@@ -14,11 +14,15 @@ defmodule Teenager do
     not is_empty?(filtered) and (filtered == String.upcase(filtered))
   end
 
+  defp is_question? (input) do
+    ends_in_question_mark?(input) and not is_empty?(input)
+  end
+  
   defp ends_in_question_mark?(input) do
-    String.ends_with(input, "?")
+    String.ends_with?(input, "?")
   end
 
-  defp is_empty?(input), do: is_empty?(input, letters_and_numbers_only)
+  defp is_empty?(input), do: is_empty?(input, &letters_and_numbers_only/1)
   
   defp is_empty?(input, filter_with) do
     String.length(filter_with.(input)) == 0
