@@ -10,34 +10,27 @@ defmodule Teenager do
   end
   
   defp is_yelling?(input) do
-    filtered = letters_only(input)
-    not is_empty?(filtered) and (filtered == String.upcase(filtered))
+    has_letters?(input) and input == String.upcase(input)
   end
 
   defp is_question? (input) do
-    ends_in_question_mark?(input) and not is_empty?(input)
+    ends_in_question_mark?(input)
   end
   
   defp ends_in_question_mark?(input) do
     String.ends_with?(input, "?")
   end
 
-  defp is_empty?(input), do: is_empty?(input, &letters_and_numbers_only/1)
-  
-  defp is_empty?(input, filter_with) do
-    String.length(filter_with.(input)) == 0
-  end
-  
   defp is_silent?(input) do
-    is_empty?(input)
+    not has_letters?(input) and not has_numbers?(input)
+  end
+  
+  defp has_letters?(input) do
+    String.match?(input, ~r/\p{L}/)
   end
 
-  defp letters_only(original) do
-    String.replace(original, ~r/[\W0-9\s]+/, "")
-  end
-
-  defp letters_and_numbers_only(original) do
-    String.replace(original, ~r/[\W\s]+/, "")
+  defp has_numbers?(input) do
+    String.match?(input, ~r/\p{N}/)
   end
   
 end
