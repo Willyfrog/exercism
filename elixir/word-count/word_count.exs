@@ -6,7 +6,8 @@ defmodule Words do
   """
   @spec count(String.t) :: map()
   def count(sentence) do
-    String.downcase(sentence)
+    sentence
+    |> String.downcase
     |> to_list
     |> list_counter
   end
